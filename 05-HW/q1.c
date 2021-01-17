@@ -3,7 +3,7 @@
 #include <stdlib.h>
 
 int main(int argc, char *argv[]){
-    int x = 99;
+    int x = 100;
     printf("Hi! I am (pid: %d) and x is: %d.\n", (int) getpid(), x);
     int rc = fork();
     
@@ -14,15 +14,13 @@ int main(int argc, char *argv[]){
     } else if (rc == 0) {
         // child (new process)
         printf("Hi! I am child (pid: %d) and x is %d.\n", (int) getpid(), x);
-        x = 100;
+        x += 1;
         printf("I am child again (pid:%d) and have changed x to %d.\n", (int) getpid(), x);
     } else {
         // parent goes down this path (original process)
-        printf("Hi! I am parent of %d (pid:%d) and x is %d.\n",
-	       rc, (int) getpid(), x);
-        x = 101;
+        printf("Hi! I am parent of %d (pid:%d) and x is %d.\n", rc, (int) getpid(), x);
+        x += 1;
         printf("I am parent again (pid:%d) and have changed x to %d.\n", (int) getpid(), x);
-
     }
     return 0;
 }
